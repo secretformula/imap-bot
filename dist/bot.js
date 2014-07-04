@@ -1,11 +1,11 @@
 (function() {
-  var Imap, configFileContents, daemonConfig, fs, mailboxConnections, _;
-
-  require('source-map-support').install();
+  var Imap, Mailbox, configFileContents, daemonConfig, fs, mailboxes, _;
 
   fs = require('fs');
 
   Imap = require('imap');
+
+  Mailbox = require('./mailbox');
 
   _ = require('underscore');
 
@@ -13,35 +13,13 @@
 
   daemonConfig = JSON.parse(configFileContents);
 
-  mailboxConnections = [];
+  mailboxes = [];
 
-  _.each(daemonConfig.mailboxes, function(mailbox) {
-    var imapConnection;
-    console.dir(mailbox);
-    imapConnection = new Imap({
-      user: mailbox.user,
-      password: mailbox.password,
-      host: mailbox.hostname,
-      port: mailbox.port,
-      tls: mailbox.secure
-    });
-    imapConnection.once('ready', function() {
-      console.log('imap is ready');
-      return imapConnection.openBox('INBOX', true, function(err, box) {
-        if (err) {
-          throw err;
-        }
-        console.log('inbox open');
-        return imapConnection.search(['UNSEEN', ['SINCE', 'July 3, 2014']], function(err, results) {
-          if (err) {
-            throw err;
-          }
-          return console.dir(results);
-        });
-      });
-    });
-    imapConnection.connect();
-    return mailboxConnections.push(imapConnection);
+  _.each(daemonConfig.mailboxes, function(mailboxConfig) {
+    var mailbox;
+    console.dir(mailboxConfig);
+    mailbox = new Mailbox(mailboxConfig);
+    return mailboxes.push(mailbox);
   });
 
 }).call(this);
