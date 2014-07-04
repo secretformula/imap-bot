@@ -30,6 +30,9 @@
     "grunt-contrib-copy": "^0.5.0"
   },
   "dependencies": {
-    "source-map-support": "^0.2.7"
+    "imap": "^0.8.12",
+    "minimist": "^0.2.0",
+    "source-map-support": "^0.2.7",
+    "underscore": "^1.6.0"
   }
 }
