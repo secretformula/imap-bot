@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "bot.js",
+  "sourceRoot": "../src/",
+  "sources": [
+    "bot.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA,EAAA,OAAA,CAAQ,oBAAR,CAA6B,CAAC,OAA9B,CAAA,CAAA,CAAA;;AAAA,EAEA,OAAO,CAAC,EAAR,CAAW,aAAX,CAFA,CAAA;AAAA"
+}
